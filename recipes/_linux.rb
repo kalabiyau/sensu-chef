@@ -65,11 +65,18 @@ when "fedora"
   end
 end
 
-package "sensu" do
-  version node.sensu.version
-  options package_options
-  notifies :create, "ruby_block[sensu_service_trigger]"
+rpm_name = "sensu-#{node[:sensu][:version]}.x86_64.rpm"
+
+bash 'install_sensu' do
+  user 'root'
+  cwd '/tmp'
+  code <<-EOH
+  wget http://repos.sensuapp.org/yum/el/6/x86_64/#{rpm_name}
+  zypper --non-interactive in #{rpm_name}
+  EOH
+  not_if 'zypper se sensu'
 end
+
 
 template "/etc/default/sensu" do
   source "sensu.default.erb"

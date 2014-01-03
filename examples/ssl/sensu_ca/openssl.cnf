@@ -14,7 +14,8 @@ default_days = 1825
 default_md = sha1                                          
 
 policy = sensu_ca_policy                                     
-x509_extensions = certificate_extensions                   
+x509_extensions = certificate_extensions
+unique_subject = no
 
 [ sensu_ca_policy ]                                          
 commonName = supplied                                      
@@ -22,7 +23,7 @@ stateOrProvinceName = optional
 countryName = optional                                     
 emailAddress = optional                                    
 organizationName = optional                                
-organizationalUnitName = optional                          
+organizationalUnitName = optional
 
 [ certificate_extensions ]                                 
 basicConstraints = CA:false                                
