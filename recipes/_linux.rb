@@ -65,13 +65,13 @@ when "fedora"
   end
 end
 
-rpm_name = "sensu-#{node[:sensu][:version]}.x86_64.rpm"
+rpm_name = "sensu-#{node[:sensu][:version]}.el5.x86_64.rpm"
 
 bash 'install_sensu' do
   user 'root'
   cwd '/tmp'
   code <<-EOH
-  wget http://repos.sensuapp.org/yum/el/6/x86_64/#{rpm_name}
+  wget https://sensu.global.ssl.fastly.net/yum/x86_64/#{rpm_name}
   zypper --non-interactive in #{rpm_name}
   EOH
   not_if 'zypper se sensu'
